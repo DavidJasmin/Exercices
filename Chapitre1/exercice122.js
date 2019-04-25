@@ -14,13 +14,14 @@ for(i=0; i < 2**transaction.length; i++) {
   	n=(n-r)/2;
   }
 
+// 10 => [0,1,0,1] => 1010
   // uneTransaction contient la combinaison binaire a tester
   var sommeOctet = 0;
   var sommePourboire = 0;
   for(var j=uneTransaction.length-1;j>=0;j--) {
     if(uneTransaction[j]==1) {
-      sommeOctet+=transaction[j][0];
-      sommePourboire+=transaction[j][1];
+      sommeOctet += transaction[j][0];
+      sommePourboire += transaction[j][1];
     }
   }
 
@@ -43,4 +44,5 @@ for(var j=transationMax.length-1;j>=0;j--) {
     console.log(transaction[j][0]," octets => ",transaction[j][1]," satoshis");
   }
 }
+
 console.log("Soit ",sommeOctet," octets cumulés pour ",sommePourboire," satoshis");
