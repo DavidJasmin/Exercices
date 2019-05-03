@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Défi 1</title>
+    <script src="defi11.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <h1>Outil d'analyse BitCoin</h1>
+    <p>Travail réalisé par David Jasmin et Twefik Mama</p>
+    <h2>Conversions</h2>
+    <section>
+      <h3>hexadécimal => Décimal</h3>
+      <label for="inputHex">Hexadécimal :</label><input type="text" name="inputHex" id="inputHex" value="0x1ac9" />
+      <button id="butHexToDec">Convertir</button>
+      Décimal :<span id="hexToDec"></span>
+      <script type="text/javascript">
+        document.getElementById('butHexToDec').addEventListener('click', event => {
+          document.getElementById('hexToDec').innerHTML = ConvHexToDec(document.getElementById('inputHex').value);
+        })
+      </script>
+    </section>
+
+    <section>
+      <h3>Décimal => Hexadécimal</h3>
+      <label for="inputDec">Décimal :</label><input type="text" name="inputDec" id="inputDec" value="1234" />
+      <button id="butDecToHex">Convertir</button>
+      Hexadécimal :<span id="decToHex"></span>
+      <script type="text/javascript">
+        document.getElementById('butDecToHex').addEventListener('click', event => {
+          document.getElementById('decToHex').innerHTML = ConvDecToHex(document.getElementById('inputDec').value);
+        })
+      </script>
+    </section>
+
+    <section>
+      <h3>hexadécimaux Little Endian => Hexadécimal</h3>
+      <label for="inputHexLE">Hexadécimal Little Endian :</label><input type="text" name="inputHexLE" id="inputHexLE" value="0x123456" />
+      <button id="butHexLEToHex">Convertir</button>
+      Hexadécimal :<span id="hexLEToHex"></span>
+      <script type="text/javascript">
+        document.getElementById('butHexLEToHex').addEventListener('click', event => {
+          document.getElementById('hexLEToHex').innerHTML = ConvHexLEToHex(document.getElementById('inputHexLE').value);
+        })
+      </script>
+    </section>
+
+    <section>
+      <h3>VarInt => Décimal</h3>
+      <label for="inputVarInt">VarInt :</label><input type="text" name="inputVarInt" id="inputVarInt" value="0xfd1316" />
+      <button id="butVarIntToDec">Convertir</button>
+      Décimal :<span id="varIntToDec"></span>
+      <script type="text/javascript">
+        document.getElementById('butVarIntToDec').addEventListener('click', event => {
+          var data = ConvVarIntToDec(document.getElementById('inputVarInt').value);
+          document.getElementById('varIntToDec').innerHTML = data[0]
+        })
+      </script>
+    </section>
+
+    <section>
+      <h3>Champs Bits => Cible correspondante</h3>
+      <label for="inputChampsBits">Champs Bits :</label><input type="text" name="inputChampsBits" id="inputChampsBits" value="1749ac36" />
+      <button id="butChampsBitsToCible">Convertir</button>
+      Cible correspondante :<span id="champsBitsToCible"></span>
+      <script type="text/javascript">
+        document.getElementById('butChampsBitsToCible').addEventListener('click', event => {
+          document.getElementById('champsBitsToCible').innerHTML = ConvChampsBitsToCible(document.getElementById('inputChampsBits').value);
+        })
+      </script>
+    </section>
+
+    <section>
+      <h3>Cible => Diffculty</h3>
+      <label for="inputCible">Cible :</label><input type="text" name="inputCible" id="inputCible" value="" />
+      <button id="butCibleToDifficulty">Convertir</button>
+      Diffculty :<span id="cibleToDifficulty"></span>
+      <script type="text/javascript">
+        document.getElementById('butCibleToDifficulty').addEventListener('click', event => {
+          document.getElementById('cibleToDifficulty').innerHTML = ConvCibleToDifficulty(document.getElementById('inputCible').value);
+        })
+      </script>
+    </section>
+
+    <section>
+      <h3>Chaine Hexadécimal => Transaction</h3>
+      <label for="inputChHex">Chaine Hexadécimal :</label><input type="text" name="inputChHex" id="inputChHex" value="0100000001f129de033c57582efb464e94ad438fff493cc4de4481729b85971236858275c2010000006a4730440220155a2ea4a702cadf37052c87bfe46f0bd24809759acff8d8a7206979610e46f6022052b688b784fa1dcb1cffeef89e7486344b814b0c578133a7b0bce5be978a9208012103915170b588170cbcf6380ef701d19bd18a526611c0c69c62d2c29ff6863d501affffffff02ccaec817000000001976a9142527ce7f0300330012d6f97672d9acb5130ec4f888ac18411a000000000017a9140b8372dffcb39943c7bfca84f9c40763b8fa9a068700000000" />
+      <button id="butChHexToTransaction">Convertir</button>
+      Transaction :<span id="chHexToTransaction"></span>
+      <script type="text/javascript">
+        document.getElementById('butChHexToTransaction').addEventListener('click', event => {
+          var s = ConvChaineHexaToTransaction(document.getElementById('inputChHex').value)
+          document.getElementById('chHexToTransaction').innerHTML = "Version : " + s.version;
+          document.getElementById('chHexToTransaction').innerHTML += "<br />Nombre de transactions : " + s.nbTransaction + "<br /> vin : [";
+          var tx = {}
+          for (var i = 0; i < s.vin.length; i++) {
+            tx = s.vin[i]
+            document.getElementById('chHexToTransaction').innerHTML += "<br />&nbsp;&nbsp;- txid :" + tx.txid;
+            document.getElementById('chHexToTransaction').innerHTML += "<br />------- vout :" + tx.vout;
+            document.getElementById('chHexToTransaction').innerHTML += "<br />------- ScriptSig :" + tx.SigScript;
+            document.getElementById('chHexToTransaction').innerHTML += "<br />------- ScriptKey :" + tx.ScriptKey;
+            document.getElementById('chHexToTransaction').innerHTML += "<br />------- sequence :" + tx.sequence;
+          }
+          document.getElementById('chHexToTransaction').innerHTML += "<br /> ]";
+          document.getElementById('chHexToTransaction').innerHTML += "<br />Nombre de outputs : " + s.nbOutputs + "<br /> vout : [";
+          var tx = {}
+          for (var i = 0; i < s.vout.length; i++) {
+            tx = s.vout[i]
+            document.getElementById('chHexToTransaction').innerHTML += "<br />&nbsp;&nbsp;- n :" + tx.numeroOutput;
+            document.getElementById('chHexToTransaction').innerHTML += "<br />------- Montant :" + tx.montant;
+            document.getElementById('chHexToTransaction').innerHTML += "<br />------- ScriptPubKey :" + tx.ScriptPubKey;
+          }
+          document.getElementById('chHexToTransaction').innerHTML += "<br /> ]";
+        })
+      </script>
+    </section>
+
+  </body>
+</html>
