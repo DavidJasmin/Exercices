@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Défi 2</title>
+    <style>
+      body {
+        font-size: .875rem;
+      }
+    </style>
+  
+</head>
+<body>
+    <!-- Image and text -->
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">
+        <img src="https://images.unsplash.com/photo-1526485797145-514b2fe83749" height="60" class="d-inline-block align-top" alt="">
+        Place de Marché d'illustrateurs indépendants
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-item nav-link" href="#deposerUneOffre">Deposer une offre</a>
+          <a class="nav-item nav-link" href="#sincrire">S'incrire</a>
+        </div>
+      </div>
+    </nav>
+    <div class="container" id="home">
+      <main role="main">
+
+        <div class="row">
+          <div class="col-md-8 order-md-1 mb-8">
+
+            <div id="mesDemandes" class="d-none">
+              <div class="jumbotron jumbotron-fluid bg-light">
+                <div class="container">
+                  <h3 class="text-center">Mes offres</h3>
+                  <table class="table table-striped table-hover table-sm">
+                    <thead>
+                      <tr>
+                        <th scope="col">Mon offre</th>
+                        <th scope="col">liste des candidats</th>
+                      </tr>
+                    </thead>
+                    <tbody id="listMesDemandes">
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="jumbotron jumbotron-fluid bg-light">
+              <div class="container">
+                <h3 class="text-center">liste offres</h3>
+                <table class="table table-sm">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Description</th>
+                      <th scope="col">Delai</th>
+                      <th scope="col">Réputation Minimum</th>
+                      <th scope="col">Rémunération</th>
+                      <th scope="col">&nbsp;</th>
+                    </tr>
+                  </thead>
+                  <tbody id="listDemande">
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="jumbotron jumbotron-fluid" id="deposerUneOffre">
+              <div class="container">
+                <h3>Déposer une offre</h3>
+                <div class="form-row">
+                  <div class="form-group col-md-12">
+                    <label for="demandeDesc">Description de votre demande</label>
+                    <textarea class="form-control" id="demandeDesc" rows="3"></textarea>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-4">
+                    <label for="demandeRem">Rémunération Illustrateur</label><br />
+                    <input type="text" class="form-control d-inline" id="demandeRem" style="width:100px;">
+                    <select name="demandeDevise" id="demandeDevise" class="d-inline" >
+                      <option value="0.001">finney</option>
+                      <option value="1">ether</option></select>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="demandeDelai">Délai (en secondes)</label>
+                    <input type="text" class="form-control" id="demandeDelai">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="demandeRep">Réputation Minimale</label>
+                    <input type="text" class="form-control" id="demandeRep">
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-4 text-right">
+                    
+                  </div>
+                  <div class="form-group col-md-4">
+                    
+                  </div>
+                  <div class="form-group col-md-4 text-right">
+                    <strong>Cout final (Eth): </strong><mark id="demandeCout"></mark> <button onclick="deposerDemande()" class="btn btn-primary btn-sm">Déposer</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 order-md-2">
+      
+            <div class="jumbotron jumbotron-fluid bg-light">
+              <div class="container" id="monEspace">
+                <h3 class="text-center">Illustrateurs</h3>
+                <table class="table table-sm table-striped table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">Nom</th>
+                    </tr>
+                  </thead>
+                  <tbody id="listIllustrateur">
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="jumbotron jumbotron-fluid" id="sincrire">
+              <div class="container">
+                <h3>S'inscrire</h3>
+                <div class="form-group">
+                    <label for="nomIllustrateur">Nom</label>
+                    <input type="text" class="form-control form-control" id="nomIllustrateur" placeholder="Nom"/>
+                </div>
+                <div class="form-group">
+                  <label for="repIllustrateur">Réputation</label>
+                  <input type="text" class="form-control form-control-sm" id="repIllustrateur" placeholder="10"/>
+                </div>
+                <div class="form-group text-right">
+                  <button onclick="inscrireIllustrateur()" class="btn btn-primary btn-sm">S'incrire</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      
+
+      </main>
+    </div>
+
+    <script src="https://cdn.ethers.io/scripts/ethers-v4.min.js"></script>
+    <script src="js/app.js" type="text/javascript"></script>
+    <script src="js/data.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
